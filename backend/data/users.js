@@ -4,20 +4,19 @@ const users = [
   {
     name: "Admin User",
     email: "admin@example.com",
-    password: bcrypt.hashSync("12345", 10),
+    password: "$2a$10$CAwMIVksWq31gumxSGwHquBjSUywxwDtCwC4dq5niE2ddffXomc6y",
     isAdmin: true,
   },
   {
     name: "John Doe",
     email: "john@example.com",
-    password: bcrypt.hashSync("12345", 10),
+    password: "$2a$10$CAwMIVksWq31gumxSGwHquBjSUywxwDtCwC4dq5niE2ddffXomc6y",
   },
   {
     name: "Jane Doe",
     email: "jane@example.com",
-    password: bcrypt.hashSync("12345", 10),
+    password: "$2a$10$CAwMIVksWq31gumxSGwHquBjSUywxwDtCwC4dq5niE2ddffXomc6y",
   },
 ];
-
 
 export default users;
