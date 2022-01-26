@@ -22,10 +22,10 @@ const reviewSchema = mongoose.Schema(
 
 const productSchema = mongoose.Schema(
   {
-    Product: {
+    user: {
       type: mongoose.Schema.Types.ObjectId,
       require: true,
-      ref: "Product",
+      ref: "User",
     },
     name: {
       type: String,
