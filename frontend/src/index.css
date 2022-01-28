@@ -23,3 +23,7 @@ h3 {
 .rating span {
   margin: 0.1rem;
 }
+
+.list-group-item {
+  word-wrap: break-word;
+}
