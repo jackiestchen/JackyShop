@@ -20,11 +20,12 @@ const LoginScreen = () => {
   const userLogin = useSelector(state => state.userLogin);
   const { loading, error, userInfo } = userLogin;
 
-  const redirect = searchParams.get("redirect") ? searchParams.get("redirect") : "/";
+  const redirect = searchParams.get("redirect") ? `/${searchParams.get("redirect")}` : "/";
+
 
   useEffect(() => {
     if (userInfo) {
-      navigate(`/${redirect}`);
+      navigate(redirect);
     }
   }, [userInfo, redirect, navigate])
 
@@ -41,7 +42,7 @@ const LoginScreen = () => {
       {error && <Message variant='danger'>{error}</Message>}
       {loading && <Loader />}
       <Form onSubmit={submitHandler}>
-        <Form.Group controldId="email">
+        <Form.Group controldid="email">
           <Form.Label>Email Address</Form.Label>
           <Form.Control
             type="email"
@@ -50,7 +51,7 @@ const LoginScreen = () => {
             onChange={(e) => setEmail(e.target.value)}
           ></Form.Control>
         </Form.Group>
-        <Form.Group controldId="password">
+        <Form.Group controldid="password">
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"

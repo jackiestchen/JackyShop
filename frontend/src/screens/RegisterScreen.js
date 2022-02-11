@@ -50,7 +50,7 @@ const RegisterScreen = () => {
       {message && <Message variant="danger">{message}</Message>}
       {loading && <Loader />}
       <Form onSubmit={submitHandler}>
-        <Form.Group controldId="name">
+        <Form.Group controlid="name">
           <Form.Label>Name</Form.Label>
           <Form.Control
             type="name"
@@ -59,7 +59,7 @@ const RegisterScreen = () => {
             onChange={(e) => setName(e.target.value)}
           ></Form.Control>
         </Form.Group>
-        <Form.Group controldId="email">
+        <Form.Group controlid="email">
           <Form.Label>Email Address</Form.Label>
           <Form.Control
             type="email"
@@ -68,7 +68,7 @@ const RegisterScreen = () => {
             onChange={(e) => setEmail(e.target.value)}
           ></Form.Control>
         </Form.Group>
-        <Form.Group controldId="password">
+        <Form.Group controlid="password">
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
@@ -77,7 +77,7 @@ const RegisterScreen = () => {
             onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
-        <Form.Group controldId="confirmedPassword">
+        <Form.Group controlid="confirmedPassword">
           <Form.Label>Confirmed Password</Form.Label>
           <Form.Control
             type="password"

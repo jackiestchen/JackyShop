@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/Message";
@@ -63,7 +63,7 @@ const ProfileScreen = () => {
         {success && <Message variant="success">Profile Updated</Message>}
         {loading && <Loader />}
         <Form onSubmit={submitHandler}>
-          <Form.Group controldId="name">
+          <Form.Group controldid="name">
             <Form.Label>Name</Form.Label>
             <Form.Control
               type="name"
@@ -72,7 +72,7 @@ const ProfileScreen = () => {
               onChange={(e) => setName(e.target.value)}
             ></Form.Control>
           </Form.Group>
-          <Form.Group controldId="email">
+          <Form.Group controldid="email">
             <Form.Label>Email Address</Form.Label>
             <Form.Control
               type="email"
@@ -81,7 +81,7 @@ const ProfileScreen = () => {
               onChange={(e) => setEmail(e.target.value)}
             ></Form.Control>
           </Form.Group>
-          <Form.Group controldId="password">
+          <Form.Group controldid="password">
             <Form.Label>Password</Form.Label>
             <Form.Control
               type="password"
@@ -90,7 +90,7 @@ const ProfileScreen = () => {
               onChange={(e) => setPassword(e.target.value)}
             ></Form.Control>
           </Form.Group>
-          <Form.Group controldId="confirmedPassword">
+          <Form.Group controldid="confirmedPassword">
             <Form.Label>Confirmed Password</Form.Label>
             <Form.Control
               type="password"
