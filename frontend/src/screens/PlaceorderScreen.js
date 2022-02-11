@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import {
   Button,
@@ -12,9 +12,12 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import CheckoutSteps from "../components/CheckoutSteps";
 import Message from "../components/Message";
+import { createOrder } from "../actions/orderActions";
 
 const PlaceorderScreen = () => {
+  const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
+  const navigate = useNavigate();
   const addDecimals = (num) => {
     return (Math.round(num * 100) / 100).toFixed(2);
   };
@@ -33,8 +36,28 @@ const PlaceorderScreen = () => {
     Number(cart.taxPrice)
   ).toFixed(2);
 
+  const orderCreate = useSelector((state) => state.orderCreate);
+  const { order, success, error } = orderCreate;
+
+  useEffect(() => {
+    if (success) {
+      navigate(`/orders/${order._id}`);
+    }
+    //es-lint-disable-next-line
+  }, [success, navigate]);
+
   const placeorderHandler = () => {
-    console.log("placeorder");
+    dispatch(
+      createOrder({
+        orderItems: cart.cartItems,
+        shippingAddress: cart.shippingAddress,
+        paymentMethod: cart.paymentMethod,
+        itemsPrice: cart.itemsPrice,
+        shippingPrice: cart.shippingPrice,
+        taxPrice: cart.taxPrice,
+        totalPrice: cart.totalPrice,
+      })
+    );
   };
 
   return (
@@ -119,6 +142,9 @@ const PlaceorderScreen = () => {
                   <Col>Total</Col>
                   <Col>${cart.totalPrice}</Col>
                 </Row>
+              </ListGroupItem>
+              <ListGroupItem>
+                {error && <Message variant="danger">{error}</Message>}
               </ListGroupItem>
               <ListGroupItem>
                 <Row>
