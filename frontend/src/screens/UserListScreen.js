@@ -1,8 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  useSearchParams,
-  useNavigate,
-} from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import { Table, Button } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,8 +18,8 @@ const UserListScreen = () => {
   }, [dispatch]);
 
   const deleteHandler = (id) => {
-    console.log('delete');
-  }
+    console.log("delete");
+  };
 
   return (
     <>
@@ -41,47 +38,44 @@ const UserListScreen = () => {
               <th>ADMIN</th>
               <th></th>
             </tr>
-            <tbody>
-              {users.map((user) => (
-                <tr key={user._id}>
-                  <td>{user._id}</td>
-                  <td>{user.name}</td>
-                  <td>
-                    <a href={`mailto:${user.email}`}>{user.email}</a>
-                  </td>
-                  <td>
-                    {user.isAdmin ? (
-                      <i
-                        className="fas fa-check"
-                        style={{ color: "green" }}
-                      ></i>
-                    ) : (
-                      <i className="fas fa-times" style={{ color: "red" }}></i>
-                    )}
-                  </td>
-                  <td>
-                    <LinkContainer to={`/users/${user._id}/edit`}>
-                      <Button variant="light" className="btn-sm">
-                        <i className="fas fa-edit"></i>
-                      </Button>
-                    </LinkContainer>
-                    <Button
-                      variant="danger"
-                      className="btn-sm"
-                      onClick={() => deleteHandler(user._id)}
-                    >
-                      <i className="fas fa-trash"></i>
-                    </Button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
           </thead>
+
+          <tbody>
+            {users.map((user) => (
+              <tr key={user._id}>
+                <td>{user._id}</td>
+                <td>{user.name}</td>
+                <td>
+                  <a href={`mailto:${user.email}`}>{user.email}</a>
+                </td>
+                <td>
+                  {user.isAdmin ? (
+                    <i className="fas fa-check" style={{ color: "green" }}></i>
+                  ) : (
+                    <i className="fas fa-times" style={{ color: "red" }}></i>
+                  )}
+                </td>
+                <td>
+                  <LinkContainer to={`/users/${user._id}/edit`}>
+                    <Button variant="light" className="btn-sm">
+                      <i className="fas fa-edit"></i>
+                    </Button>
+                  </LinkContainer>
+                  <Button
+                    variant="danger"
+                    className="btn-sm"
+                    onClick={() => deleteHandler(user._id)}
+                  >
+                    <i className="fas fa-trash"></i>
+                  </Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
         </Table>
       )}
     </>
   );
 };
 
-
-export default (UserListScreen);
+export default UserListScreen;
