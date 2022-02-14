@@ -15,7 +15,7 @@ import { getOrderDetails, payOrder } from "../actions/orderActions";
 import Loader from "../components/Loader";
 import axios from "axios";
 import { PayPalButton } from "react-paypal-button-v2";
-import { ORDER_PAY_RESET } from "../constants/orderConstants";
+import { ORDER_DETAILS_RESET, ORDER_PAY_RESET } from "../constants/orderConstants";
 
 const OrderScreen = () => {
   const dispatch = useDispatch();
@@ -28,6 +28,10 @@ const OrderScreen = () => {
 
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order, loading, error } = orderDetails;
+
+  // if (order._id !== orderId) {
+  //   dispatch({type: ORDER_DETAILS_RESET})
+  // }
 
   const orderPay = useSelector((state) => state.orderPay);
   const { loading: loadingPay, success: successPay } = orderPay;
@@ -43,6 +47,7 @@ const OrderScreen = () => {
   }
 
   useEffect(() => {
+
     const addPayPalScript = async () => {
       const { data: clientId } = await axios.get("/api/config/paypal");
       const script = document.createElement("script");
@@ -55,8 +60,9 @@ const OrderScreen = () => {
       document.body.appendChild(script);
     };
 
-    if (!order || successPay) {
+    if (!order || successPay || order._id !== orderId) {
       dispatch({ type: ORDER_PAY_RESET });
+      dispatch({type: ORDER_DETAILS_RESET})
       dispatch(getOrderDetails(orderId));
     } else if (!order.isPaid) {
       if (!window.paypal) {
@@ -68,7 +74,7 @@ const OrderScreen = () => {
   }, [orderId, dispatch, successPay, order]);
 
   const successPaymentHandler = (paymentResult) => {
-    console.log(paymentResult);
+    // console.log(paymentResult);
     dispatch(payOrder(orderId, paymentResult));
   };
 
