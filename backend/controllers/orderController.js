@@ -42,7 +42,7 @@ const addOrderItems = expressAsyncHandler(async (req, res) => {
 const getOrderById = expressAsyncHandler(async (req, res) => {
   const order = await Order.findById(req.params.id).populate('user', 'name email');
 
-  // console.log(order);
+  console.log(order);
 
   if (order) {
     res.json(order);
@@ -77,4 +77,15 @@ const updateOrderToPaid = expressAsyncHandler(async (req, res) => {
   }
 });
 
-export { addOrderItems, getOrderById, updateOrderToPaid };
+
+// @desc    GET logged in user orders
+// @route   PUT /api/orders/myorders
+// @access  Private
+
+const getMyOrders = expressAsyncHandler(async (req, res) => {
+  const orders = await Order.find({user: req.user._id});
+
+  res.json(orders);
+})
+
+export { addOrderItems, getOrderById, updateOrderToPaid, getMyOrders };
