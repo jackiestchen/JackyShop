@@ -58,7 +58,7 @@ export const orderDetailsReducer = (
         error: action.payload,
       };
     case ORDER_DETAILS_RESET:
-      return {};
+      return {loading: true};
     default:
       return state;
   }

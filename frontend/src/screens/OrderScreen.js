@@ -29,10 +29,6 @@ const OrderScreen = () => {
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order, loading, error } = orderDetails;
 
-  // if (order._id !== orderId) {
-  //   dispatch({type: ORDER_DETAILS_RESET})
-  // }
-
   const orderPay = useSelector((state) => state.orderPay);
   const { loading: loadingPay, success: successPay } = orderPay;
 
@@ -62,7 +58,6 @@ const OrderScreen = () => {
 
     if (!order || successPay || order._id !== orderId) {
       dispatch({ type: ORDER_PAY_RESET });
-      dispatch({type: ORDER_DETAILS_RESET})
       dispatch(getOrderDetails(orderId));
     } else if (!order.isPaid) {
       if (!window.paypal) {
