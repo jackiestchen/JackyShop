@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams, Link } from "react-router-dom";
+import {  useParams, Link } from "react-router-dom";
 import {
-  Button,
   Row,
   Col,
   ListGroup,
@@ -15,11 +14,10 @@ import { getOrderDetails, payOrder } from "../actions/orderActions";
 import Loader from "../components/Loader";
 import axios from "axios";
 import { PayPalButton } from "react-paypal-button-v2";
-import { ORDER_DETAILS_RESET, ORDER_PAY_RESET } from "../constants/orderConstants";
+import { ORDER_PAY_RESET } from "../constants/orderConstants";
 
 const OrderScreen = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const [sdkReady, setSdkReady] = useState(false);
 

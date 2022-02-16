@@ -12,7 +12,6 @@ import {
   ORDER_LIST_MY_REQUEST,
   ORDER_LIST_MY_SUCCESS,
   ORDER_LIST_MY_FAIL,
-  ORDER_DETAILS_RESET,
 } from "../constants/orderConstants";
 
 export const createOrder = (order) => async (dispatch, getState) => {
