@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import CheckoutSteps from "../components/CheckoutSteps";
 import Message from "../components/Message";
 import { createOrder } from "../actions/orderActions";
+import { ORDER_CREATE_RESET } from "../constants/orderConstants";
 
 const PlaceorderScreen = () => {
   const dispatch = useDispatch();
@@ -39,10 +40,14 @@ const PlaceorderScreen = () => {
   const orderCreate = useSelector((state) => state.orderCreate);
   const { order, success, error } = orderCreate;
 
+  const userLogin = useSelector(state => state.userLogin);
+  const { loading: loadingUser, error: errorUser, userInfo} = userLogin;
+
   useEffect(() => {
-    if (success) {
-      navigate(`/orders/${order._id}`);
-    }
+  
+      if (success) {
+        navigate(`/orders/${order._id}`);
+      }   
     //es-lint-disable-next-line
   }, [success, navigate]);
 
@@ -58,6 +63,7 @@ const PlaceorderScreen = () => {
         totalPrice: cart.totalPrice,
       })
     );
+    dispatch({type: ORDER_CREATE_RESET});
   };
 
   return (
