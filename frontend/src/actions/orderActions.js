@@ -12,6 +12,9 @@ import {
   ORDER_LIST_MY_REQUEST,
   ORDER_LIST_MY_SUCCESS,
   ORDER_LIST_MY_FAIL,
+  ORDER_GET_ALL_REQUEST,
+  ORDER_GET_ALL_SUCCESS,
+  ORDER_GET_ALL_FAIL,
 } from "../constants/orderConstants";
 
 export const createOrder = (order) => async (dispatch, getState) => {
@@ -37,7 +40,6 @@ export const createOrder = (order) => async (dispatch, getState) => {
       payload: data,
     });
 
-    localStorage.removeItems("cartItems");
   } catch (error) {
     dispatch({
       type: ORDER_CREATE_FAIL,
@@ -109,6 +111,8 @@ export const payOrder =
         type: ORDER_PAY_SUCCESS,
         payload: data,
       });
+
+      // localStorage.removeItem("cartItems")
     } catch (error) {
       dispatch({
         type: ORDER_PAY_FAIL,
@@ -151,3 +155,36 @@ export const listMyOrders = () => async (dispatch, getState) => {
     });
   }
 };
+
+export const listAllOrders = () => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: ORDER_GET_ALL_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+    const { data } = await axios.get(`/api/orders`, config);
+
+    dispatch({
+      type: ORDER_GET_ALL_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: ORDER_GET_ALL_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
