@@ -171,6 +171,7 @@ function ProductScreen() {
                         <Form.Label>Rating</Form.Label>
                         <Form.Control
                           as="select"
+                          className="mb-3"
                           value={rating}
                           onChange={(e) => setRating(e.target.value)}
                         >
@@ -187,6 +188,7 @@ function ProductScreen() {
                         <Form.Control
                           as="textarea"
                           row="3"
+                          className="mb-3"
                           value={comment}
                           onChange={(e) => setComment(e.target.value)}
                         ></Form.Control>
