@@ -40,7 +40,10 @@ const addOrderItems = expressAsyncHandler(async (req, res) => {
 // @route   GET /api/orders/:id
 // @access  Private
 const getOrderById = expressAsyncHandler(async (req, res) => {
-  const order = await Order.findById(req.params.id).populate('user', 'name email');
+  const order = await Order.findById(req.params.id).populate(
+    "user",
+    "name email"
+  );
 
   console.log(order);
 
@@ -65,38 +68,60 @@ const updateOrderToPaid = expressAsyncHandler(async (req, res) => {
       id: req.body.id,
       status: req.body.status,
       update_time: req.body.update_time,
-      email_address: req.body.payer.email_address
-    }
+      email_address: req.body.payer.email_address,
+    };
     const updatedOrder = await order.save();
-    
-    res.json(updatedOrder);
 
+    res.json(updatedOrder);
   } else {
     res.status(404);
     throw new Error("Order not found");
   }
 });
 
+// @desc    Update order to delivered
+// @route   PUT /api/orders/:id
+// @access  Private/admin
+const updateOrderToDelivered = expressAsyncHandler(async (req, res) => {
+  const order = await Order.findById(req.params.id);
+
+  if (order) {
+    order.isDelivered = true;
+    order.deliveredAt = Date.now();
+
+    const updatedOrder = await order.save();
+
+    res.json(updatedOrder);
+  } else {
+    res.status(404);
+    throw new Error("Order not found");
+  }
+});
 
 // @desc    GET logged in user orders
 // @route   PUT /api/orders/myorders
 // @access  Private
 
 const getMyOrders = expressAsyncHandler(async (req, res) => {
-  const orders = await Order.find({user: req.user._id});
+  const orders = await Order.find({ user: req.user._id });
 
   res.json(orders);
-})
+});
 
 // @desc    GET all orders
 // @route   GET /api/orders
 // @access  Private/admin
 
 const getAllOrders = expressAsyncHandler(async (req, res) => {
-  const orders = await Order.find({}).populate('user', "id name");
+  const orders = await Order.find({}).populate("user", "id name");
   res.json(orders);
-})
+});
 
-
-
-export { addOrderItems, getOrderById, updateOrderToPaid, getMyOrders, getAllOrders };
+export {
+  addOrderItems,
+  getOrderById,
+  getMyOrders,
+  getAllOrders,
+  updateOrderToPaid,
+  updateOrderToDelivered,
+};
