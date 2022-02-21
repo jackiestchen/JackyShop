@@ -89,12 +89,11 @@ const getMyOrders = expressAsyncHandler(async (req, res) => {
 })
 
 // @desc    GET all orders
-// @route   PUT /api/orders
+// @route   GET /api/orders
 // @access  Private/admin
 
 const getAllOrders = expressAsyncHandler(async (req, res) => {
   const orders = await Order.find({}).populate('user', "id name");
-
   res.json(orders);
 })
 
