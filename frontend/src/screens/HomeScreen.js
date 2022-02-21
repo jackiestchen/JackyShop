@@ -8,7 +8,7 @@ import Message from "../components/Message";
 import { useParams } from "react-router-dom";
 
 const HomeScreen = () => {
-  const { keyword } = useParams();
+  const { keyword, pageNumber = 1 } = useParams();
 
   const dispatch = useDispatch();
 
@@ -17,8 +17,8 @@ const HomeScreen = () => {
   const { loading, error, products } = productList;
 
   useEffect(() => {
-    dispatch(listProducts(keyword));
-  }, [dispatch, keyword]);
+    dispatch(listProducts(keyword, pageNumber));
+  }, [dispatch, keyword, pageNumber]);
 
   return (
     <>
