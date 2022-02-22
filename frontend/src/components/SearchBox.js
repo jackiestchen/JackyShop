@@ -14,7 +14,7 @@ const SearchBox = ({ navigate }) => {
   };
 
   return (
-    <Form onSubmit={submitHandler} inline>
+    <Form onSubmit={submitHandler}>
       <InputGroup>
         <Form.Control
           type="text"
