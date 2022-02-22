@@ -40,6 +40,7 @@ function App() {
             <Route path="/cart" element={<CartScreen />} />
             <Route path="/cart/:id" element={<CartScreen />} />
             <Route path="/admin/userlist" element={<UserListScreen />} />
+            <Route path="/admin/productlist/:pageNumber" element={<ProductListScreen />} exact/>
             <Route path="/admin/productlist" element={<ProductListScreen />} />
             <Route path="/admin/user/:id/edit" element={<UserEditScreen />} />
             <Route path="/admin/orderlist" element={<OrderListScreen />} />          
