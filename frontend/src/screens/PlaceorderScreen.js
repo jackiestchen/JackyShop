@@ -14,6 +14,7 @@ import CheckoutSteps from "../components/CheckoutSteps";
 import Message from "../components/Message";
 import { createOrder } from "../actions/orderActions";
 import { ORDER_CREATE_RESET } from "../constants/orderConstants";
+import { CART_RESET_ITEM } from "../constants/cartConstants";
 
 const PlaceorderScreen = () => {
   const dispatch = useDispatch();
@@ -40,14 +41,14 @@ const PlaceorderScreen = () => {
   const orderCreate = useSelector((state) => state.orderCreate);
   const { order, success, error } = orderCreate;
 
-  const userLogin = useSelector(state => state.userLogin);
-  const { loading: loadingUser, error: errorUser, userInfo} = userLogin;
+  const userLogin = useSelector((state) => state.userLogin);
+  const { loading: loadingUser, error: errorUser, userInfo } = userLogin;
 
   useEffect(() => {
-  
-      if (success) {
-        navigate(`/orders/${order._id}`);
-      }   
+    if (success) {
+      navigate(`/orders/${order._id}`);
+      dispatch({ type: ORDER_CREATE_RESET });
+    }
     //es-lint-disable-next-line
   }, [success, navigate]);
 
@@ -63,7 +64,6 @@ const PlaceorderScreen = () => {
         totalPrice: cart.totalPrice,
       })
     );
-    dispatch({type: ORDER_CREATE_RESET});
   };
 
   return (
@@ -77,7 +77,8 @@ const PlaceorderScreen = () => {
               <p>
                 <strong>Address: </strong>
                 {cart.shippingAddress.address}, {cart.shippingAddress.city},{" "}
-                {cart.shippingAddress.country}, {cart.shippingAddress.postalCode}
+                {cart.shippingAddress.country},{" "}
+                {cart.shippingAddress.postalCode}
               </p>
             </ListGroupItem>
             <ListGroupItem>
