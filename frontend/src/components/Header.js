@@ -1,17 +1,19 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { LinkContainer } from "react-router-bootstrap";
-import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
-import { logout } from "../actions/userActions";
-import SearchBox from "./SearchBox";
-import { useNavigate } from "react-router-dom";
-
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { LinkContainer } from 'react-router-bootstrap';
+import { Button, Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { logout } from '../actions/userActions';
+import SearchBox from './SearchBox';
+import { useNavigate } from 'react-router-dom';
+import { useFlags } from 'flagsmith/react';
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
+
+  const flags = useFlags(['show_admin_button', 'show_new_feature']);
 
   const logoutHandler = () => {
     dispatch(logout());
@@ -26,8 +28,11 @@ const Header = () => {
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <SearchBox navigate={navigate}/>
+            <SearchBox navigate={navigate} />
             <Nav className="ms-auto">
+              {flags?.show_admin_button?.value && (
+                <Button>HIDDEN BUTTON</Button>
+              )}
               <LinkContainer to="/cart">
                 <Nav.Link href="/cart">
                   <i className="fas fa-shopping-cart" /> Cart
@@ -38,6 +43,12 @@ const Header = () => {
                   <LinkContainer to="/profile">
                     <NavDropdown.Item>Profile</NavDropdown.Item>
                   </LinkContainer>
+                  {flags?.show_new_feature?.value && (
+                    <LinkContainer to="/newfeature">
+                      <NavDropdown.Item>New Feature</NavDropdown.Item>
+                    </LinkContainer>
+                  )}
+
                   <NavDropdown.Item onClick={logoutHandler}>
                     Logout
                   </NavDropdown.Item>
